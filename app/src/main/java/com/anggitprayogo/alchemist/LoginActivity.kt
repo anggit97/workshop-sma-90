@@ -1,8 +1,10 @@
 package com.anggitprayogo.alchemist
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
@@ -32,13 +34,13 @@ class LoginActivity : AppCompatActivity() {
             val password = etPassword.text.toString()
 
             //Validasi login
-            if (email.isEmpty()){
+            if (email.isEmpty()) {
                 etEmail.error = "Email harus diisi"
                 etEmail.requestFocus()
                 return@setOnClickListener
             }
 
-            if (password.isEmpty()){
+            if (password.isEmpty()) {
                 etPassword.error = "Password harus diisi"
                 etPassword.requestFocus()
                 return@setOnClickListener
@@ -46,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
 
 
             //Step 7: Proses autentikasi pengguna ke sistem dengan email dan password
-            if (email != emailFromDatabase){
+            if (email != emailFromDatabase) {
                 Toast.makeText(
                     this,
                     "Email tidak sesuai dengan yang ada didatabase",
@@ -54,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
                 ).show()
                 return@setOnClickListener
             }
-            if (password != passwordFromDatabase){
+            if (password != passwordFromDatabase) {
                 Toast.makeText(
                     this,
                     "Password tidak sesuai dengan yang ada didatabase",
@@ -65,6 +67,21 @@ class LoginActivity : AppCompatActivity() {
 
             //Step 5. Tampilkan
             Toast.makeText(this, "Berhasil Login", Toast.LENGTH_SHORT).show()
+
+            //PIndah ke halaman Main Activity (Utama)
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
+
+        //Deklrasi ID
+        val tvRegister = findViewById<TextView>(R.id.tvRegister)
+
+        //Kita kasih action klik
+        tvRegister.setOnClickListener {
+            //Pindah ke halaman register
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
         }
     }
 }
